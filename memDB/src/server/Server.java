@@ -20,8 +20,7 @@ public class Server {
             server = new ServerSocket(port);
             System.out.println("Server started " + server.getLocalSocketAddress());
         } catch (IOException e) {
-            System.out.println("Failed to start server");
-            e.printStackTrace();
+            throw new RuntimeException("Failed to start server");
         }
     }
 
@@ -38,7 +37,6 @@ public class Server {
                 System.out.println("Connection from :  " + conn.getInetAddress().toString() + " On Port : " + conn.getPort());
             }
         } catch (IOException e) {
-            e.printStackTrace();
             stop();
         }
     }
@@ -60,9 +58,8 @@ public class Server {
      * Main method to start the server on port 5001.
      *
      * @param args The command-line arguments.
-     * @throws IOException If an I/O error occurs.
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         int port = Integer.parseInt(args[0]);
         Server server = new Server(port);
         server.start();

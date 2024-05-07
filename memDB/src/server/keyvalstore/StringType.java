@@ -10,14 +10,6 @@ public class StringType implements Type, Serializable {
     private Long expTime;
 
     /**
-     * Default constructor.
-     * Sets the expiry time to -1 (never expires).
-     */
-    public StringType(){
-        expTime = -1L;
-    }
-
-    /**
      * Constructor with initial value.
      * Sets the expiry time to -1 (never expires).
      *

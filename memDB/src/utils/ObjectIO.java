@@ -48,7 +48,7 @@ public class ObjectIO {
      */
     public Map<String, Type> readObjectFromFile(String fileName) {
         String filePath = Paths.get(dataPath, fileName.concat(".ser")).toString();
-        Object obj = null;
+        Object obj;
         try(ObjectInputStream input = new ObjectInputStream(new FileInputStream(filePath))){
             obj = input.readObject();
         }catch (IOException | ClassNotFoundException e){

@@ -54,41 +54,33 @@ public class DataStore {
      * Deletes the value associated with the specified key.
      *
      * @param key The key of the value to delete.
-     * @return "null" if the key does not exist, otherwise "ok".
      */
-    public String delete(String key){
+    public void delete(String key){
         if(map.get(key) != null){
             map.remove(key);
         }
-        return "null";
     }
 
     /**
      * Increments the value associated with the specified key if it is a number.
      *
      * @param key The key of the value to increment.
-     * @return "null" if the key does not exist or the value is not a number, otherwise "ok".
      */
-    public String increment(String key){
+    public void increment(String key){
         if(map.get(key) != null){
             map.get(key).increment();
-            return "ok";
         }
-        return "null";
     }
 
     /**
      * Decrements the value associated with the specified key if it is a number.
      *
      * @param key The key of the value to decrement.
-     * @return "null" if the key does not exist or the value is not a number, otherwise "ok".
      */
-    public String decrement(String key){
+    public void decrement(String key){
         if(map.get(key) != null) {
             map.get(key).decrement();
-            return "ok";
         }
-        return "null";
     }
 
     /**
@@ -108,20 +100,17 @@ public class DataStore {
     /**
      * Pushes a value to the beginning of the list associated with the specified key.
      *
-     * @param key The key of the list.
+     * @param key   The key of the list.
      * @param value The value to push.
-     * @return "ok" if successful, otherwise "null".
      */
-    public String lPush(String key, String value){
+    public void lPush(String key, String value){
         Type list = map.get(key);
         if(list == null){
             ListType t = new ListType();
             t.lPush(value);
             map.put(key, t);
-            return "ok";
         }else{
             ((ListType) list).lPush(value);
-            return "ok";
         }
     }
 
