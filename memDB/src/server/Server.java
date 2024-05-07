@@ -8,7 +8,7 @@ import java.net.Socket;
  * A server that listens for incoming connections and handles them using client handlers.
  */
 public class Server {
-    private ServerSocket server;
+    private final ServerSocket server;
 
     /**
      * Constructs a server that listens on the specified port.
