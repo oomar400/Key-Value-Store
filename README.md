@@ -19,7 +19,7 @@ This project implements a multithreaded client-server architecture for a key-val
 3. **Commands**: Use the following commands to interact with the server:
 
    - `SET key value`: Sets the value of the specified key.
-   - `SETX key value expiration_time` Sets the value of the specified key and also sets an expiration time (in milliseconds) for the key-value pair
+   - `SETX key value expiration_time` Sets the value of the specified key and also sets an expiration time (in milliseconds)
    - `GET key`: Retrieves the value of the specified key.
    - `DELETE key`: Deletes the specified key-value pair.
    - `INCREMENT key`: Increments the value of the specified key if it's a number.
