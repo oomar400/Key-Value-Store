@@ -11,7 +11,7 @@ import java.util.List;
 public class Request implements Serializable {
     private Command command;
     private String key;
-    private List<String> args;
+    private final List<String> args;
 
     /**
      * Constructs a request object from raw data.
@@ -19,7 +19,7 @@ public class Request implements Serializable {
      * @param rawData The raw data of the request.
      */
     public Request(String rawData){
-        args = new ArrayList<String>();
+        args = new ArrayList<>();
         command = null;
         parseData(rawData);
     }
