@@ -11,6 +11,7 @@ import java.net.Socket;
  * Represents a client handler that processes requests from a client.
  */
 public class ClientHandler implements Runnable{
+    private DataStore store;
     private Socket client;
     private ObjectMessenger messenger;
     private ObjectInputStream objectInputStream;
@@ -25,11 +26,11 @@ public class ClientHandler implements Runnable{
     public ClientHandler(Socket client)  {
         try{
             this.client = client;
-            DataStore store = new DataStore();
+            store = new DataStore();
             messenger = new ObjectMessenger();
             objectInputStream = new ObjectInputStream(client.getInputStream());
             objectOutputStream = new ObjectOutputStream(client.getOutputStream());
-            commandDispatcher = new CommandDispatcher(messenger, objectOutputStream, store);
+            commandDispatcher = new CommandDispatcher(messenger, objectInputStream, objectOutputStream, store);
         }catch (IOException e){
             closeClient();
         }

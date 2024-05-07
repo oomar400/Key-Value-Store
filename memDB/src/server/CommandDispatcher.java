@@ -8,6 +8,7 @@ import utils.ObjectMessenger;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.net.SocketException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,11 +26,12 @@ public class CommandDispatcher {
      * Constructs a command dispatcher with the given dependencies.
      *
      * @param messenger The object messenger for sending responses.
+     * @param objectInputStream The object input stream for receiving requests.
      * @param objectOutputStream The object output stream for sending responses.
      * @param store The data store for storing key-value pairs.
      */
 
-    public CommandDispatcher(ObjectMessenger messenger, ObjectOutputStream objectOutputStream, DataStore store) {
+    public CommandDispatcher(ObjectMessenger messenger, ObjectInputStream objectInputStream, ObjectOutputStream objectOutputStream, DataStore store) {
         this.messenger = messenger;
         this.objectOutputStream = objectOutputStream;
         this.store = store;
@@ -63,6 +65,7 @@ public class CommandDispatcher {
             Command command = request.getCommand();
             String key = request.getKey();
             if(command == Command.LOAD && key != null){
+                ObjectIO objectIO = new ObjectIO();
                 store.loadDataStore(key);
                 return new Response(true, store.getKeys());
             }
@@ -80,6 +83,7 @@ public class CommandDispatcher {
         Command command = request.getCommand();
         String key = request.getKey();
         if(command == Command.SAVE && key != null){
+            ObjectIO objectIO = new ObjectIO();
             store.saveDataStore(key);
             return new Response(true, "Saved : " + store.getKeys());
         }
@@ -114,7 +118,7 @@ public class CommandDispatcher {
             Command command = request.getCommand();
             String key = request.getKey();
             String val = request.getArgs().getFirst();
-            if(command == Command.LPUSH && key != null && val != null){
+            if(command == command.LPUSH && key != null && val != null){
                 store.lPush(key, val);
                 return new Response(true, store.get(key));
 
@@ -163,7 +167,7 @@ public class CommandDispatcher {
 
     private Response handleSet(Request request) {
         if (request != null) {
-            System.out.println("HANDLING SET " + request);
+            System.out.println("HANDLING SET " + request.toString());
             Command command = request.getCommand();
             String key = request.getKey();
             List<String> args = request.getArgs();
@@ -219,7 +223,7 @@ public class CommandDispatcher {
     public void dispatch(Request request) throws IOException {
         Command command = request.getCommand();
         CommandHandler handler = commandMap.get(command);
-        Response resp;
+        Response resp = null;
         if(handler != null){
             resp = handler.handle(request);
         }else {
