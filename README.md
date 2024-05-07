@@ -30,5 +30,11 @@ This project implements a multithreaded client-server architecture for a key-val
    - `SAVE filename`: Saves the key-value store to a file.
    - `LOAD filename`: Loads the key-value store from a file.
 
+# Demo
+
+
+https://github.com/oomar400/Key-Value-Store/assets/120695832/db2ce476-b188-42cf-b2d0-953696cf3b6a
+
+
 ## Requirements
 - Java 8 or higher
